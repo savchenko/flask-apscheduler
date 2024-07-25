@@ -1,10 +1,9 @@
-import apscheduler
-import datetime
-
-from flask import Flask
+from flask import Flask, current_app
 from flask_apscheduler import APScheduler, utils
 from pytz import utc
-from unittest import TestCase
+import datetime
+import sys
+import importlib
 
 
 class TestScheduler(TestCase):
@@ -148,6 +147,27 @@ class TestScheduler(TestCase):
         self.scheduler.shutdown()
         self.assertFalse(self.scheduler.running)
 
+    def test_run_job(self):
+        job = self.scheduler.add_job('job2', job2)
+
+        with self.assertRaises(RuntimeError):
+            self.scheduler.run_job('job2')
+
+        job = self.scheduler_two.add_job('job2', job2)
+        self.scheduler_two.run_job('job2')
+
+    def test_apply_app_context(self):
+        now = datetime.datetime.now(utc)
+        self.scheduler_two.start()
+        job = self.scheduler_two.add_job('appctx', job2, trigger='date', next_run_time=now)
+        executor = self.scheduler_two._scheduler._executors['default']
+
+        self.assertTrue(executor.submit_job(job, [now]) is None)
+
 
 def job1():
     pass
+
+
+def job2():
+    return current_app.name
