@@ -138,7 +138,8 @@ def extract_timedelta(delta):
 
 
 def bytes_to_wsgi(data):
-    assert isinstance(data, bytes), "data must be bytes"
+    if not isinstance(data, bytes):
+        raise ValueError(f"Data must be bytes, got {type(data)}")
     if isinstance(data, str):
         return data
     else:
