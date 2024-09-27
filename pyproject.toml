@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "flask-apscheduler"
+version = "1.13.3"
+description = ""
+authors = ["Vinicius Chiele <vinicius.chiele@gmail.com>", "mxdev88 (https://github.com/mxdev88)", "Andrew Savchenko <andrew@savchenko.net>"]
+readme = "README.md"
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
