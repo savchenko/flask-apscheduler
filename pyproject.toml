@@ -6,7 +6,7 @@ authors = ["Vinicius Chiele <vinicius.chiele@gmail.com>", "mxdev88 (https://gith
 readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
-flask = "^3.0.3"
+flask = "^3.1.0"
 
 [build-system]
 requires = ["poetry-core"]
